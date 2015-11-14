@@ -41,3 +41,5 @@ wikidata_ids(candidates.map { |c| c[:wikiname] }).each do |p|
   ScraperWiki.save_sqlite([:id], data)
 end
 
+warn RestClient.post ENV['MORPH_REBUILDER_URL'], {} if ENV['MORPH_REBUILDER_URL']
+
