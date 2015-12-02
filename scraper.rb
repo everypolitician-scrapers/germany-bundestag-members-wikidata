@@ -9,37 +9,27 @@ require 'wikidata/fetcher'
 require 'mediawiki_api'
 
 
-def candidates
+def members
   morph_api_url = 'https://api.morph.io/tmtmtmtm/germany-bundestag-members-wikipedia/data.json'
   morph_api_key = ENV["MORPH_API_KEY"]
   result = RestClient.get morph_api_url, params: {
     key: morph_api_key,
-    query: "select DISTINCT(identifier__wikipedia_de) as wikiname from data"
+    query: "SELECT DISTINCT(identifier__wikipedia_de) AS wikiname FROM data"
   }
   JSON.parse(result, symbolize_names: true)
 end
 
-def wikidata_ids(names)
-  client = MediawikiApi::Client.new "https://de.wikipedia.org/w/api.php"
-  res = names.each_slice(50).map { |sliced|
-    page_args = { 
-      prop: 'pageprops',
-      ppprop: 'wikibase_item',
-      titles: sliced.join("|"),
-      token_type: false,
-    }
-    response = client.action :query, page_args 
-    response.data['pages'].find_all { |p| p.last.key? 'pageprops' }.map { |p| 
-      [ p.last['title'], p.last['pageprops']['wikibase_item'] ]
-    }
-  }
-  Hash[ res.flatten(1) ]
-end
-
-wikidata_ids(candidates.map { |c| c[:wikiname] }).each do |p|
-  data = WikiData::Fetcher.new(id: p.last).data('de') or next
+WikiData.ids_from_pages('de', members.map { |c| c[:wikiname] }).each_with_index do |p, i|
+  data = WikiData::Fetcher.new(id: p.last).data('de') rescue nil
+  unless data
+    warn "No data for #{p}"
+    next
+  end
+  puts data
+  data[:original_wikiname] = p.first
   ScraperWiki.save_sqlite([:id], data)
 end
+
 
 warn RestClient.post ENV['MORPH_REBUILDER_URL'], {} if ENV['MORPH_REBUILDER_URL']
 
