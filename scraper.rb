@@ -4,5 +4,5 @@
 require 'wikidata/fetcher'
 
 names = EveryPolitician::Wikidata.morph_wikinames(source: 'tmtmtmtm/germany-bundestag-members-wikipedia', column: 'wikiname')
-EveryPolitician::Wikidata.scrape_wikidata(names: { de: names }, batch_size: 25)
+EveryPolitician::Wikidata.scrape_wikidata(names: { de: names }, batch_size: 20)
 
