@@ -23,8 +23,7 @@ GIT
 
 GIT
   remote: https://github.com/everypolitician/wikisnakker.git
-  revision: 764d9ae43e623eaf838038d3e33b1aa7ccbb70a0
-  branch: yajl
+  revision: 502c9bd62a3c8a5e6671fc4744b4a5c7c5e618bc
   specs:
     wikisnakker (0.8.0)
       yajl-ruby
