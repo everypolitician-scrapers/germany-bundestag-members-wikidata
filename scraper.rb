@@ -10,4 +10,4 @@ ids = EveryPolitician::Wikidata.sparql(sparq)
 # existing = EveryPolitician::Index.new.country("Germany").lower_house.popolo.persons.map(&:wikidata).compact
 names = EveryPolitician::Wikidata.morph_wikinames(source: 'tmtmtmtm/germany-bundestag-members-wikipedia', column: 'wikiname')
 
-EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { de: names }, batch_size: 250)
+EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { de: names }, batch_size: 100)
