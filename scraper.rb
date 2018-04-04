@@ -4,7 +4,7 @@
 require 'everypolitician'
 require 'wikidata/fetcher'
 
-sparq = 'SELECT ?item WHERE { ?item wdt:P39 wd:Q1939555 . }'
+sparq = 'SELECT ?item WHERE { ?item p:P39/ps:P39 wd:Q1939555 . }'
 ids = EveryPolitician::Wikidata.sparql(sparq)
 
 # existing = EveryPolitician::Index.new.country("Germany").lower_house.popolo.persons.map(&:wikidata).compact
