@@ -15,9 +15,9 @@ GIT
 
 GIT
   remote: https://github.com/everypolitician/wikidata-fetcher.git
-  revision: 6997062e395e2853bbc9993eabf89ba12fcc6cb1
+  revision: d71b4bce80c8a9b1b95c662f8d1fb05039ada533
   specs:
-    wikidata-fetcher (0.21.0)
+    wikidata-fetcher (0.21.1)
       colorize
       diskcached
       json
@@ -149,7 +149,7 @@ DEPENDENCIES
   wikidata-fetcher!
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.2
+   1.16.5
