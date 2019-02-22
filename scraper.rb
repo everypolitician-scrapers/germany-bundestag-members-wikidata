@@ -6,6 +6,6 @@ require 'wikidata/fetcher'
 sparq = 'SELECT ?item WHERE { ?item p:P39/ps:P39 wd:Q1939555 . }'
 ids = EveryPolitician::Wikidata.sparql(sparq)
 
-names = EveryPolitician::Wikidata.morph_wikinames(source: 'tmtmtmtm/germany-bundestag-members-wikipedia', column: 'wikiname')
+wpde = EveryPolitician::Wikidata.morph_wikinames(source: 'tmtmtmtm/germany-bundestag-members-wikipedia', column: 'wikidata')
 
-EveryPolitician::Wikidata.scrape_wikidata(ids: ids, names: { de: names }, batch_size: 100)
+EveryPolitician::Wikidata.scrape_wikidata(ids: ids | wpde, batch_size: 100)
